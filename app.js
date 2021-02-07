@@ -62,7 +62,7 @@ const foodDetails = foodId => {
         .then(res => res.json())
         .then(data => {
             const uiTemplate = `
-            <div class="col-md-8 m-auto">
+            <div class="col-md-5 m-auto">
                 <div>
                     <img class="img-fluid" src="${data.meals[0].strMealThumb}" />
                     <div class="card-body">
