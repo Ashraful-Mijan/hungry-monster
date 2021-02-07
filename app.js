@@ -25,7 +25,6 @@ searchBtn.addEventListener('click', function () {
 
 // Find food function and error handle
 const foodFind = foods => {
-
     const inputFood = document.getElementById('inputFood').value;
     if (inputFood === '') {
         const uiTemplate = `
