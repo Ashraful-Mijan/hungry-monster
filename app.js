@@ -14,12 +14,13 @@ searchBtn.addEventListener('click', function () {
 
         .catch(err => {
             const uiTemplate = `
-                <div class="col-md-8 m-auto bg-danger mt-5 rounded">
+                <div class="col-md-4 m-auto bg-danger mt-5 rounded py-3">
                 <h3 class="text-white text-center">'This food's name are not valid'</h3>
                 </div>
             `;
             errorHandle.innerHTML = uiTemplate;
             detailsFood.innerHTML = "";
+            foodList.innerHTML = "";
         })
 })
 
@@ -28,12 +29,13 @@ const foodFind = foods => {
     const inputFood = document.getElementById('inputFood').value;
     if (inputFood === '') {
         const uiTemplate = `
-                <div class="col-md-8 m-auto bg-danger mt-5 rounded py-4">
+                <div class="col-md-4 m-auto bg-danger mt-5 rounded py-4">
                 <h3 class="text-white text-center">'This food's name field are null'</h3>
                 </div>
             `;
         errorHandle.innerHTML = uiTemplate;
         detailsFood.innerHTML = "";
+        foodList.innerHTML = "";
     }
     else {
         let uiTemplate = "";
