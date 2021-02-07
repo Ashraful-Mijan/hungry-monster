@@ -14,7 +14,7 @@ searchBtn.addEventListener('click', function () {
 
         .catch(err => {
             const uiTemplate = `
-                <div class="col-md-8 m-auto bg-danger mt-5">
+                <div class="col-md-8 m-auto bg-danger mt-5 rounded">
                 <h3 class="text-white text-center">'This food's name are not valid'</h3>
                 </div>
             `;
@@ -29,7 +29,7 @@ const foodFind = foods => {
     const inputFood = document.getElementById('inputFood').value;
     if (inputFood === '') {
         const uiTemplate = `
-                <div class="col-md-8 m-auto bg-danger mt-5">
+                <div class="col-md-8 m-auto bg-danger mt-5 rounded">
                 <h3 class="text-white text-center">'This food's name field are null'</h3>
                 </div>
             `;
