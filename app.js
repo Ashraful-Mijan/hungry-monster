@@ -7,7 +7,16 @@ searchBtn.addEventListener('click', function () {
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputFood}`)
         .then(res => res.json())
         .then(data => {
-            foodFind(data.meals);   
+            foodFind(data.meals);
+        })
+        
+        .catch(err => {
+            const uiTemplate = `
+                <div class="col-md-8 m-auto bg-danger mt-5">
+                <h3 class="text-white text-center">'This food's name are not valid'</h3>
+                </div>
+            `
+            foodList.innerHTML += uiTemplate;
         })
 })
 
@@ -24,51 +33,35 @@ const foodFind = foods => {
                 </div>
             </div>
         `;
-        foodList.innerHTML += uiTemplate; 
+        foodList.innerHTML += uiTemplate;
     })
 }
 
 // displayDetails function
 const foodDetails = foodId => {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`)
-    .then(res => res.json())
-    .then(data => {
-        const uiTemplate = `
+        .then(res => res.json())
+        .then(data => {
+            const uiTemplate = `
             <div class="col-md-8 m-auto">
                 <div>
                     <img class="img-fluid" src="${data.meals[0].strMealThumb}" />
                     <div class="card-body">
                         <h1 class="card-title">${data.meals[0].strMeal}</h1>
                         <h4 class="card-title">Ingredient</h4>
-                        
-                         <div >
-                         <label >
-                           <input class="form-check-input me-1" type="checkbox" checked value="">
-                           ${data.meals[0].strIngredient1}
-                         </label><br>
-                         <label >
-                           <input class="form-check-input me-1" type="checkbox" checked value="">
-                           ${data.meals[0].strIngredient2}
-                         </label><br>
-                         <label >
-                           <input class="form-check-input me-1" type="checkbox" checked value="">
-                           ${data.meals[0].strIngredient3}
-                         </label><br>
-                         <label >
-                           <input class="form-check-input me-1" type="checkbox" checked value="">
-                           ${data.meals[0].strIngredient4}
-                         </label><br>
-                         <label >
-                           <input class="form-check-input me-1" type="checkbox" checked value="">
-                           ${data.meals[0].strIngredient5}
-                         </label><br> 
-                       </div>
+                       <ul >
+                            <li> ${data.meals[0].strIngredient1} </li>
+                            <li> ${data.meals[0].strIngredient2} </li>
+                            <li> ${data.meals[0].strIngredient3} </li>
+                            <li> ${data.meals[0].strIngredient4} </li>
+                            <li> ${data.meals[0].strIngredient5} </li>
+                       </ul>
                     </div>
                 </div>
             </div>
         `;
-        detailsFood.innerHTML = uiTemplate;
-    })
+            detailsFood.innerHTML = uiTemplate;
+        })
 }
 
 
