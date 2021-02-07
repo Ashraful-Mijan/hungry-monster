@@ -18,7 +18,7 @@ searchBtn.addEventListener('click', function () {
                 <h3 class="text-white text-center">'This food's name are not valid'</h3>
                 </div>
             `;
-            errorHandle.innerHTML += uiTemplate;
+            errorHandle.innerHTML = uiTemplate;
             detailsFood.innerHTML = "";
         })
 })
@@ -29,16 +29,17 @@ const foodFind = foods => {
     const inputFood = document.getElementById('inputFood').value;
     if (inputFood === '') {
         const uiTemplate = `
-                <div class="col-md-8 m-auto bg-danger mt-5 rounded">
+                <div class="col-md-8 m-auto bg-danger mt-5 rounded py-4">
                 <h3 class="text-white text-center">'This food's name field are null'</h3>
                 </div>
             `;
-        errorHandle.innerHTML += uiTemplate;
+        errorHandle.innerHTML = uiTemplate;
         detailsFood.innerHTML = "";
     }
     else {
+        let uiTemplate = "";
         foods.forEach(singleFood => {
-            const uiTemplate = `
+             uiTemplate += `
                 <div class="col">
                     <div class="card" onclick="foodDetails(${singleFood.idMeal})">
                         <img class="img-fluid" src="${singleFood.strMealThumb}" />
@@ -48,7 +49,7 @@ const foodFind = foods => {
                     </div>
                 </div>
             `;
-            foodList.innerHTML += uiTemplate;
+            foodList.innerHTML = uiTemplate;
             errorHandle.innerHTML = '';
         })
     }
