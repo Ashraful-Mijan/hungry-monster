@@ -1,7 +1,9 @@
 const searchBtn = document.getElementById('searchBtn');
 const foodList = document.getElementById('foodList');
 const detailsFood = document.getElementById('detailsFood')
-// Search Event Listener
+const errorHandle = document.getElementById('errorHandle');
+
+// SearchBtn Event Listener
 searchBtn.addEventListener('click', function () {
     const inputFood = document.getElementById('inputFood').value;
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputFood}`)
@@ -9,35 +11,50 @@ searchBtn.addEventListener('click', function () {
         .then(data => {
             foodFind(data.meals);
         })
-        
+
         .catch(err => {
             const uiTemplate = `
                 <div class="col-md-8 m-auto bg-danger mt-5">
                 <h3 class="text-white text-center">'This food's name are not valid'</h3>
                 </div>
-            `
-            foodList.innerHTML += uiTemplate;
+            `;
+            errorHandle.innerHTML += uiTemplate;
+            detailsFood.innerHTML = "";
         })
 })
 
-// Find food function
+// Find food function and error handle
 const foodFind = foods => {
-    foods.forEach(singleFood => {
+
+    const inputFood = document.getElementById('inputFood').value;
+    if (inputFood === '') {
         const uiTemplate = `
-            <div class="col">
-                <div class="card" onclick="foodDetails(${singleFood.idMeal})">
-                    <img class="img-fluid" src="${singleFood.strMealThumb}" />
-                    <div class="card-body">
-                        <h4 class="card-title">${singleFood.strMeal}</h4>
+                <div class="col-md-8 m-auto bg-danger mt-5">
+                <h3 class="text-white text-center">'This food's name field are null'</h3>
+                </div>
+            `;
+        errorHandle.innerHTML += uiTemplate;
+        detailsFood.innerHTML = "";
+    }
+    else {
+        foods.forEach(singleFood => {
+            const uiTemplate = `
+                <div class="col">
+                    <div class="card" onclick="foodDetails(${singleFood.idMeal})">
+                        <img class="img-fluid" src="${singleFood.strMealThumb}" />
+                        <div class="card-body">
+                            <h4 class="card-title">${singleFood.strMeal}</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `;
-        foodList.innerHTML += uiTemplate;
-    })
+            `;
+            foodList.innerHTML += uiTemplate;
+            errorHandle.innerHTML = '';
+        })
+    }
 }
 
-// displayDetails function
+// function for display food details
 const foodDetails = foodId => {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${foodId}`)
         .then(res => res.json())
@@ -61,6 +78,7 @@ const foodDetails = foodId => {
             </div>
         `;
             detailsFood.innerHTML = uiTemplate;
+            errorHandle.innerHTML = '';
         })
 }
 
